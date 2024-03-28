@@ -12,7 +12,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.pydantic_v1 import BaseModel
 from langchain_core.runnables import RunnableParallel, RunnablePassthrough
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-
+from langchain import hub
 
 loader_faq = CSVLoader("docs/faq.csv")  # WebBaseLoader("https://www.uparcel.sg/faq/")
 loader_delivery = CSVLoader("docs/del_rate.csv")
@@ -37,14 +37,14 @@ retriever = vectorstore.as_retriever()
 # Prompt
 # Optionally, pull from the Hub
 # from langchain import hub
-# prompt = hub.pull("rlm/rag-prompt")
+prompt = hub.pull("rlm/rag-prompt")
 # Or, define your own:
-template = """Answer the question based only on the following context:
-{context}
+# template = """Answer the question based only on the following context:
+# {context}
 
-Question: {question}
-"""
-prompt = ChatPromptTemplate.from_template(template)
+# Question: {question}
+# """
+# prompt = ChatPromptTemplate.from_template(template)
 
 # LLM
 # Select the LLM that you downloaded
