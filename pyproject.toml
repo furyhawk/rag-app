@@ -17,6 +17,7 @@ rag-chroma-private = {path = "packages/rag-chroma-private", develop = true}
 pypdf = "^4.1.0"
 langchainhub = "^0.1.15"
 unstructured = "^0.12.6"
+rag-conversation = {path = "packages/rag-conversation", develop = true}
 
 
 [tool.poetry.group.dev.dependencies]

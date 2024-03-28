@@ -2567,6 +2567,27 @@ type = "directory"
 url = "packages/rag-chroma-private"
 
 [[package]]
+name = "rag-conversation"
+version = "0.1.0"
+description = "Conversational RAG using Pinecone"
+optional = false
+python-versions = ">=3.11,<3.12"
+files = []
+develop = true
+
+[package.dependencies]
+beautifulsoup4 = "^4.12.2"
+chromadb = ">=0.4.14"
+gpt4all = ">=2.3.2"
+langchain = "^0.1"
+langchain-text-splitters = ">=0.0.1,<0.1"
+tiktoken = ">=0.5.1"
+
+[package.source]
+type = "directory"
+url = "packages/rag-conversation"
+
+[[package]]
 name = "rapidfuzz"
 version = "3.6.1"
 description = "rapid fuzzy string matching"
@@ -3967,4 +3988,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.11,<3.12"
-content-hash = "48cf95806acc87fd00e3d8bae533a330a52fb83e963c5d75f178372eb788071e"
+content-hash = "81de79037ffaffa09ae040393d5b7a156558c73f24355abe571a1aea1347b56f"
