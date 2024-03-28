@@ -1,14 +1,13 @@
 # Load
 from langchain_community.chat_models import ChatOllama
 
-# from langchain_community.document_loaders import WebBaseLoader
 from langchain_community.document_loaders.csv_loader import CSVLoader
+from langchain_community.document_loaders import TextLoader
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_community.document_loaders.merge import MergedDataLoader
 from langchain_community.embeddings import GPT4AllEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain_core.output_parsers import StrOutputParser
-from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.pydantic_v1 import BaseModel
 from langchain_core.runnables import RunnableParallel, RunnablePassthrough
 from langchain_text_splitters import RecursiveCharacterTextSplitter
@@ -16,9 +15,10 @@ from langchain import hub
 
 loader_faq = CSVLoader("docs/faq.csv")  # WebBaseLoader("https://www.uparcel.sg/faq/")
 loader_delivery = CSVLoader("docs/del_rate.csv")
-# load_pdf = PyPDFLoader("docs/uParcel_Rates_13092022.pdf")
+loader_txt = TextLoader("docs/surcharge.txt")
+load_pdf = PyPDFLoader("docs/uParcel_Rates_13092022.pdf")
 
-loader_all = MergedDataLoader([loader_faq, loader_delivery])
+loader_all = MergedDataLoader([loader_faq, load_pdf, loader_delivery, loader_txt])
 data = loader_all.load()
 
 # Split
@@ -37,7 +37,7 @@ retriever = vectorstore.as_retriever()
 # Prompt
 # Optionally, pull from the Hub
 # from langchain import hub
-prompt = hub.pull("rlm/rag-prompt")
+prompt = hub.pull("rlm/rag-prompt-mistral")
 # Or, define your own:
 # template = """Answer the question based only on the following context:
 # {context}
@@ -49,7 +49,7 @@ prompt = hub.pull("rlm/rag-prompt")
 # LLM
 # Select the LLM that you downloaded
 ollama_llm = "mistral:latest"  # llama2:7b-chat
-model = ChatOllama(model=ollama_llm)
+model = ChatOllama(model=ollama_llm, temperature=0.5, num_ctx=4096)
 
 # RAG chain
 chain = (
