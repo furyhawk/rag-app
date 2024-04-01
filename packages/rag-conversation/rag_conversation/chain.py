@@ -37,7 +37,10 @@ loader_all = MergedDataLoader([loader_faq, load_pdf, loader_delivery, loader_txt
 data = loader_all.load()
 
 # Split
-text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=0)
+chunk_size_tok = 2000
+text_splitter = RecursiveCharacterTextSplitter(
+    chunk_size=chunk_size_tok, chunk_overlap=0
+)
 all_splits = text_splitter.split_documents(data)
 
 # Add to vectorDB
